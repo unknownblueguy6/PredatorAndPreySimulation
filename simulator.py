@@ -1,13 +1,48 @@
-import pygame
+import pygame, sys
+from pygame.locals import *
 
-WIDTH = HEIGHT = 400
+WIDTH  = 400 
+HEIGHT = 400
 
-pygame.init()
-mainClock = pygame.time.clock()
-windowSurface = pygame.display.set_mode((WIDTH, HEIGHT), 0, 32)
-pygame.display.set_caption('SIMULATOR')
+class Simulator:
+    def __init__(self):
+        pygame.init()
+        self.clock = pygame.time.Clock()
+        self.surface = pygame.display.set_mode((WIDTH, HEIGHT), 0, 32)
+        self.predators = []
+        self.prey = []
+        self.food = []
+        pygame.display.set_caption('SIMULATOR')
+
+    def drawModels(self):
+        for p in predators:
+            p.draw(self.surface)
+        for p in prey:
+            p.draw(self.surface)
+        for p in food:
+            p.draw(self.surface)
+
+    def update(self):
+        pygame.display.update()
+
+    def checkEvents(self):
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                self.kill()
+            
+            # add keys for config settings here
+            if event.type == KEYDOWN:
+                if event.key == K_ESCAPE:
+                    self.kill()
+
+    def kill(self):
+        pygame.quit()
+        sys.exit()
 
 
-while 1:
-    pygame.draw.rect(windowSurface, (255, 0, 0), pygame.Rect(10, 20, 30, 40))
-    pygame.display.update()
+sim = Simulator()
+
+while True:
+    sim.checkEvents()
+    # sim.drawModels()
+    sim.update()
