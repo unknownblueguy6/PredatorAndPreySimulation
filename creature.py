@@ -16,10 +16,8 @@ class Creature:
         pass
         #drawing the field of view circle
         #pygame.draw.circle(surface,(255,255,255),(self.x,self.y),self.fieldRadius)
-    def details(self):
+    def details(self, name):
         if(self.alive):
-            print(f"The Creatures max health is {self.maxHealth}")
-            print(f"The Creatures field of view is from ({self.x},{self.y}) to a radius of {self.fieldRadius}")
-            print(f"The Creatures max velocity is {self.maxVelocity}")
-        else:
-            print("The Creature is dead. Sorry :(")
+            print(f"The {name}'s max health is {self.maxHealth}")
+            print(f"The {name}'s field of view is from ({self.x},{self.y}) to a radius of {self.fieldRadius}")
+            print(f"The {name}'s max velocity is {self.maxVelocity}")
