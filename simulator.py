@@ -4,6 +4,11 @@ from pygame.locals import *
 WIDTH  = 400 
 HEIGHT = 400
 
+PREY_SIZE = 20
+PREDATOR_SIZE = 20
+PREY_COLOR = (0, 0, 255, 100)
+PREDATOR_COLOR = (255, 0, 0, 100)
+
 class Simulator:
     def __init__(self):
         pygame.init()
@@ -40,15 +45,19 @@ class Simulator:
         sys.exit()
 
 class Creature:
-    def __init__(self,maxHealth,fieldRadius,maxVelocity,position):
+    def __init__(self,maxHealth,fieldRadius,maxVelocity,position, color, size):
         self.x = position[0]
         self.y = position[1]
+        self.color = color
+        self.rect = pygame.Rect((self.x, self.y), (size, size))
         self.maxHealth = maxHealth
         self.fieldRadius = fieldRadius
         self.maxVelocity = maxVelocity
         self.alive = True
     def dead(self):
         self.alive = False
+    def draw(self, surface):
+        pygame.draw.rect(surface, self.color, self.rect)
     def showFieldofView(self):
         pass
         #drawing the field of view circle
