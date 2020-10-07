@@ -1,3 +1,5 @@
+import pygame
+
 class Creature:
     def __init__(self,maxHealth,fieldRadius,maxVelocity,position, color, size):
         self.x = position[0]
