@@ -1,11 +1,20 @@
 from creature import *
 
-PREY_SIZE = 20
-PREY_COLOR = (0, 0, 255, 100)
+MAX_HEALTH   = 100
+VIEW_RADIUS  = 20
+MAX_VELOCITY = 15
+
+SIZE = 15
+COLOR = (0, 0, 255, 100)
+
+MAX_DETECTION_OF_FOOD       = 10
+MAX_ATTRACTION_TO_FOOD      = 10
+MAX_DETECTION_OF_PREDATOR   = 10
+MAX_REPULSION_FROM_PREDATOR = 10
 
 class Prey(Creature):
     def __init__(self,creatureFields,detectionOfFood,attractionToFood,detectionOfPredator,repulsionToPredator):
-        super(Prey,self).__init__(self,creatureFields)
+        super(Prey,self).__init__(*creatureFields)
         self.detectionOfFood = detectionOfFood
         self.attractionToFood = attractionToFood
         self.detectionOfPredator = detectionOfPredator
