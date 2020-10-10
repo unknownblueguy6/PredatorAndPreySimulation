@@ -1,7 +1,7 @@
 import pygame
 
-FOOD_COLOR = (0, 0, 255, 100)
-FOOD_SIZE = 10
+COLOR = (0, 255, 0, 100)
+SIZE = 5
 
 class Food:
     def __init__(self, position, color, size):
