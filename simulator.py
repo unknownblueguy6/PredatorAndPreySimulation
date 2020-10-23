@@ -8,6 +8,8 @@ from pygame.locals import *
 WIDTH  = 900 
 HEIGHT = 900
 MAX_FOOD_SUPPLY = 200
+INIT_VELOCITY = 10
+FPS = 30
 
 class Simulator:
     def __init__(self, initialPredatorPopulation, initialPreyPopulation):
@@ -24,6 +26,7 @@ class Simulator:
                     predator.VIEW_RADIUS,
                     predator.MAX_VELOCITY,
                     (random.randint(0, WIDTH), random.randint(0, HEIGHT)),
+                    (random.uniform(-1, 1) * INIT_VELOCITY, random.uniform(-1, 1) * INIT_VELOCITY),
                     predator.COLOR,
                     predator.SIZE,
                 ),
@@ -39,6 +42,7 @@ class Simulator:
                     prey.VIEW_RADIUS,
                     prey.MAX_VELOCITY,
                     (random.randint(0, WIDTH), random.randint(0, HEIGHT)),
+                    (random.uniform(-1, 1) * INIT_VELOCITY, random.uniform(-1, 1) * INIT_VELOCITY),
                     prey.COLOR,
                     prey.SIZE,
                 ),
@@ -67,8 +71,16 @@ class Simulator:
         for p in self.food:
             p.draw(self.surface)
 
+    def moveModels(self):
+        self.surface.fill((0, 0, 0))
+        for p in self.predators:
+            p.move(WIDTH, HEIGHT)
+        for p in self.prey:
+            p.move(WIDTH, HEIGHT)
+
     def update(self):
         pygame.display.update()
+        self.clock.tick(FPS)
 
     def checkEvents(self):
         for event in pygame.event.get():
@@ -88,5 +100,6 @@ sim = Simulator(50, 50)
 
 while True:
     sim.checkEvents()
+    sim.moveModels()
     sim.drawModels()
     sim.update()
