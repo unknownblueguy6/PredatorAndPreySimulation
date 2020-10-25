@@ -1,17 +1,23 @@
 import pygame
 
 class Creature:
-    def __init__(self,maxHealth,fieldRadius,maxVelocity,position, color, size):
-        self.x = position[0]
-        self.y = position[1]
+    def __init__(self,maxHealth,fieldRadius, maxVelocity, position, velocity, color, size):    
         self.color = color
-        self.rect = pygame.Rect((self.x, self.y), (size, size))
+        self.size = size
+        self.rect = pygame.Rect((position[0], position[1]), (size, size))
         self.maxHealth = maxHealth
         self.fieldRadius = fieldRadius
         self.maxVelocity = maxVelocity
+        self.velocity = pygame.math.Vector2(velocity)
         self.alive = True
     def dead(self):
         self.alive = False
+    def move(self, width, height):
+        self.rect.move_ip(self.velocity[0], self.velocity[1])
+        if (self.rect.x <= 0 or self.rect.x >= width):
+            self.velocity.update(-self.velocity[0], self.velocity[1])
+        if (self.rect.y <= 0 or self.rect.y >= height):
+            self.velocity.update(self.velocity[0], -self.velocity[1])
     def draw(self, surface):
         pygame.draw.rect(surface, self.color, self.rect)
     def showFieldofView(self):
