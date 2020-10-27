@@ -1,5 +1,13 @@
 import pygame
 
+# maxHealth    =>  integer for health (Out of 100)
+# fieldRadius  => integer for field of view
+# maxVelocity  => integer value of max Velocity
+# position     => a tuple of integers for 2D coordinate system
+# velocity     => current velocity
+# color        => color code
+# size         => size of creature
+
 class Creature:
     def __init__(self,maxHealth,fieldRadius, maxVelocity, position, velocity, color, size):    
         self.color = color

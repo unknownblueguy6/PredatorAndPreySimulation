@@ -92,6 +92,12 @@ class Simulator:
                 if event.key == K_ESCAPE:
                     self.kill()
 
+    def detectAndAdapt(self):
+        for animal in self.predators:
+            animal.detect()
+        for animal in self.prey:
+            animal.detect()
+
     def kill(self):
         pygame.quit()
         sys.exit()
@@ -103,3 +109,4 @@ while True:
     sim.moveModels()
     sim.drawModels()
     sim.update()
+    # sim.detectAndAdapt()
