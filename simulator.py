@@ -3,13 +3,16 @@ import predator
 import prey
 import food
 import random
+import constants
 from pygame.locals import *
 
-WIDTH  = 900 
-HEIGHT = 900
-MAX_FOOD_SUPPLY = 200
-INIT_VELOCITY = 10
-FPS = 30
+WIDTH  = constants.WIDTH
+HEIGHT = constants.HEIGHT
+MAX_FOOD_SUPPLY = constants.MAX_FOOD_SUPPLY
+INIT_VELOCITY = constants.INIT_VELOCITY
+FPS = constants.FPS
+initialPredatorPopulation = constants.initialPredatorPopulation
+initialPreyPopulation = constants.initialPreyPopulation
 
 class Simulator:
     def __init__(self, initialPredatorPopulation, initialPreyPopulation):
@@ -102,7 +105,7 @@ class Simulator:
         pygame.quit()
         sys.exit()
 
-sim = Simulator(50, 50)
+sim = Simulator(initialPredatorPopulation, initialPreyPopulation)
 
 while True:
     sim.checkEvents()

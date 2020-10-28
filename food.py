@@ -1,7 +1,8 @@
 import pygame
+import constants
 
-COLOR = (0, 255, 0, 100)
-SIZE = 5
+COLOR = constants.FoodCOLOR
+SIZE = constants.FoodSIZE
 
 class Food:
     def __init__(self, position, color, size):

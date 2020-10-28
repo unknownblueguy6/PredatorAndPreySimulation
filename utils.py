@@ -16,10 +16,10 @@ def FilterUsingEuclideanDistances(Position, ListOfCounterCreatures, Upperbound):
 
     return response
 
-def PredictSafeDirection(Position, CreaturesAround, InitialVelocity):
+def PredictSafeDirection(Position, CreaturesAround):
     '''
     Changes the Direction to the net resultant of the pos vectors of all visible predators 
-    '''
+    ''' 
     vectorlist = []
 
     for animal in CreaturesAround:
@@ -32,8 +32,3 @@ def PredictSafeDirection(Position, CreaturesAround, InitialVelocity):
     resultant *= -1
 
     return resultant.tolist()
-
-
-ans = PredictSafeDirection((0,0),[(1,1)],0)
-
-print(ans)

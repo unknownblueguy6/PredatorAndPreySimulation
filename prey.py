@@ -1,16 +1,17 @@
 from creature import *
+import constants
 
-MAX_HEALTH   = 100
-VIEW_RADIUS  = 20
-MAX_VELOCITY = 15
+MAX_HEALTH   = constants.PreyMAXHEALTH
+VIEW_RADIUS  = constants.PreyVIEW_RADIUS
+MAX_VELOCITY = constants.PreyMAX_VELOCITY
 
-SIZE = 15
-COLOR = (0, 0, 255, 100)
+SIZE = constants.PreySIZE
+COLOR = constants.PreyCOLOR
 
-MAX_DETECTION_OF_FOOD       = 10
-MAX_ATTRACTION_TO_FOOD      = 10
-MAX_DETECTION_OF_PREDATOR   = 10
-MAX_REPULSION_FROM_PREDATOR = 10
+MAX_DETECTION_OF_FOOD       = constants.PreyMAX_DETECTION_OF_FOOD
+MAX_ATTRACTION_TO_FOOD      = constants.PreyMAX_ATTRACTION_TO_FOOD
+MAX_DETECTION_OF_PREDATOR   = constants.PreyMAX_DETECTION_OF_PREDATOR
+MAX_REPULSION_FROM_PREDATOR = constants.PreyMAX_REPULSION_FROM_PREDATOR
 
 class Prey(Creature):
     def __init__(self,creatureFields,detectionOfFood,attractionToFood,detectionOfPredator,repulsionToPredator):

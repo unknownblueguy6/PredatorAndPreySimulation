@@ -1,14 +1,15 @@
 from creature import *
+import constants
 
-MAX_HEALTH   = 100
-VIEW_RADIUS  = 20
-MAX_VELOCITY = 15
+MAX_HEALTH   = constants.PredatorMAX_HEALTH
+VIEW_RADIUS  = constants.PredatorVIEW_RADIUS
+MAX_VELOCITY = constants.PredatorMAX_VELOCITY
 
-SIZE = 15
-COLOR = (255, 0, 0, 100)
+SIZE = constants.PredatorSIZE
+COLOR = constants.PredatorCOLOR
 
-MAX_DETECTION_OF_PREY  = 10
-MAX_ATTRACTION_TO_PREY = 10
+MAX_DETECTION_OF_PREY  = constants.MAX_DETECTION_OF_PREY
+MAX_ATTRACTION_TO_PREY = constants.MAX_ATTRACTION_TO_PREY
 
 class Predator(Creature):
     def __init__(self,creatureFields,detection,attraction):
