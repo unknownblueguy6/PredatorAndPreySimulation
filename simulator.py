@@ -97,9 +97,9 @@ class Simulator:
 
     def detectAndAdapt(self):
         for animal in self.predators:
-            animal.detect()
+            animal.detect(self.prey)
         for animal in self.prey:
-            animal.detect()
+            animal.detect(self.predators)
 
     def kill(self):
         pygame.quit()
@@ -112,4 +112,4 @@ while True:
     sim.moveModels()
     sim.drawModels()
     sim.update()
-    # sim.detectAndAdapt()
+    sim.detectAndAdapt()

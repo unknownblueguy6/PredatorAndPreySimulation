@@ -1,7 +1,8 @@
 from creature import *
 import constants
+import utils
 
-MAX_HEALTH   = constants.PreyMAXHEALTH
+MAX_HEALTH   = constants.PreyMAX_HEALTH
 VIEW_RADIUS  = constants.PreyVIEW_RADIUS
 MAX_VELOCITY = constants.PreyMAX_VELOCITY
 
@@ -20,6 +21,15 @@ class Prey(Creature):
         self.attractionToFood = attractionToFood
         self.detectionOfPredator = detectionOfPredator
         self.repulsionToPredator = repulsionToPredator
+
+    def detect(self, predators): 
+        creaturesAround = utils.FilterUsingEuclideanDistances((self.rect.x,self.rect.y), predators, self.fieldRadius)
+        if len(creaturesAround) == 0:
+            pass
+        else:
+            newDirection = utils.PredictSafeDirection((self.rect.x,self.rect.y), creaturesAround)
+            self.changeDirection(newDirection)
+
     def details(self):
         if(self.alive):
             super().details("Prey")

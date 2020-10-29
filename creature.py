@@ -3,7 +3,7 @@ import pygame
 # maxHealth    =>  integer for health (Out of 100)
 # fieldRadius  => integer for field of view
 # maxVelocity  => integer value of max Velocity
-# position     => a tuple of integers for 2D coordinate system
+# position     => a tuple of integers for initial 2D coordinate system
 # velocity     => current velocity
 # color        => color code
 # size         => size of creature
@@ -26,6 +26,14 @@ class Creature:
             self.velocity.update(-self.velocity[0], self.velocity[1])
         if (self.rect.y <= 0 or self.rect.y >= height):
             self.velocity.update(self.velocity[0], -self.velocity[1])
+    def changeDirection(self, newDirectionVec):
+        OldMagnitude = self.velocity[0]**2 + self.velocity[1]**2
+        NewMagnitude = newDirectionVec[0]**2 + newDirectionVec[1]**2
+        if NewMagnitude == 0:
+            pass
+        else:
+            factor = OldMagnitude/NewMagnitude
+            self.velocity.update(factor*newDirectionVec[0], factor*newDirectionVec[1])
     def draw(self, surface):
         pygame.draw.rect(surface, self.color, self.rect)
     def showFieldofView(self):

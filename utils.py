@@ -8,8 +8,7 @@ def FilterUsingEuclideanDistances(Position, ListOfCounterCreatures, Upperbound):
     response = []
 
     for animal in ListOfCounterCreatures:
-        x,y = animal.position
-        # x,y = animal #:: Testing
+        x,y = animal.rect.x, animal.rect.y
         distance = ((x-Position[0])**2 + (y-Position[1])**2)**(0.5)
         if distance < Upperbound:
             response.append(animal)
@@ -23,8 +22,7 @@ def PredictSafeDirection(Position, CreaturesAround):
     vectorlist = []
 
     for animal in CreaturesAround:
-        # vectorlist.append([animal.position[0] - Position[0] , animal.position[1] - Position[1]])
-        vectorlist.append([animal[0] - Position[0] , animal[1] - Position[1]]) # :: Testing
+        vectorlist.append([animal.rect.x - Position[0] , animal.rect.y - Position[1]])
     
     vectors = np.array(vectorlist)
     resultant = np.sum(vectors, axis = 0)
