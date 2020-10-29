@@ -1,14 +1,17 @@
+# Simulator
 WIDTH  = 900 
 HEIGHT = 900
 MAX_FOOD_SUPPLY = 200
 initialPreyPopulation = 25
-initialPredatorPopulation = 25
+initialPredatorPopulation = 20
 INIT_VELOCITY = 10
 FPS = 30
 
+# Food
 FoodCOLOR = (0, 255, 0, 100)
 FoodSIZE = 5
 
+# Predator
 PredatorMAX_HEALTH   = 100
 PredatorVIEW_RADIUS  = 20
 PredatorMAX_VELOCITY = 15
@@ -17,6 +20,7 @@ PredatorCOLOR = (255, 0, 0, 100)
 MAX_DETECTION_OF_PREY  = 10
 MAX_ATTRACTION_TO_PREY = 10
 
+# Prey
 PreyMAX_HEALTH   = 100
 PreyVIEW_RADIUS  = 20
 PreyMAX_VELOCITY = 15

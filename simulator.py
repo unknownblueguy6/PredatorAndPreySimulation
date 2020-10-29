@@ -77,9 +77,9 @@ class Simulator:
     def moveModels(self):
         self.surface.fill((0, 0, 0))
         for p in self.predators:
-            p.move(WIDTH, HEIGHT)
+            p.move(WIDTH, HEIGHT, self.prey)
         for p in self.prey:
-            p.move(WIDTH, HEIGHT)
+            p.move(WIDTH, HEIGHT, self.predators)
 
     def update(self):
         pygame.display.update()
@@ -95,12 +95,6 @@ class Simulator:
                 if event.key == K_ESCAPE:
                     self.kill()
 
-    def detectAndAdapt(self):
-        for animal in self.predators:
-            animal.detect(self.prey)
-        for animal in self.prey:
-            animal.detect(self.predators)
-
     def kill(self):
         pygame.quit()
         sys.exit()
@@ -112,4 +106,3 @@ while True:
     sim.moveModels()
     sim.drawModels()
     sim.update()
-    sim.detectAndAdapt()

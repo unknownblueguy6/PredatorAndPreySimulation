@@ -20,20 +20,14 @@ class Creature:
         self.alive = True
     def dead(self):
         self.alive = False
-    def move(self, width, height):
-        self.rect.move_ip(self.velocity[0], self.velocity[1])
+    def move(self, width, height, CounterCreatures):
+        IntuitiveForce = self.detect(CounterCreatures)
+        currVelocity = (self.velocity[0]*(1 + IntuitiveForce[0]), self.velocity[1]*(1 + IntuitiveForce[1]))
+        self.rect.move_ip(currVelocity[0], currVelocity[1])
         if (self.rect.x <= 0 or self.rect.x >= width):
             self.velocity.update(-self.velocity[0], self.velocity[1])
         if (self.rect.y <= 0 or self.rect.y >= height):
             self.velocity.update(self.velocity[0], -self.velocity[1])
-    def changeDirection(self, newDirectionVec):
-        OldMagnitude = self.velocity[0]**2 + self.velocity[1]**2
-        NewMagnitude = newDirectionVec[0]**2 + newDirectionVec[1]**2
-        if NewMagnitude == 0:
-            pass
-        else:
-            factor = OldMagnitude/NewMagnitude
-            self.velocity.update(factor*newDirectionVec[0], factor*newDirectionVec[1])
     def draw(self, surface):
         pygame.draw.rect(surface, self.color, self.rect)
     def showFieldofView(self):

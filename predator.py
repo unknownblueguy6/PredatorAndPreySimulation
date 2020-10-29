@@ -18,13 +18,10 @@ class Predator(Creature):
         self.detectionOfPrey = detection
         self.attractionOfPrey = attraction
 
-    def detect(self, preys):
-        creaturesAround = utils.FilterUsingEuclideanDistances((self.rect.x,self.rect.y), preys, self.fieldRadius)
-        if len(creaturesAround) == 0:
-            pass
-        else:
-            newDirection = utils.PredictSafeDirection((self.rect.x,self.rect.y), creaturesAround)
-            self.changeDirection(newDirection)
+    def detect(self, CounterCreatures):
+        FilteredList = utils.FilterUsingEuclideanDistances((self.rect.x,self.rect.y) ,CounterCreatures ,self.fieldRadius)
+        response = utils.PredictSafeDirection((self.rect.x,self.rect.y) ,FilteredList, self.attractionOfPrey)
+        return response
 
     def details(self):
         if(self.alive):

@@ -22,13 +22,10 @@ class Prey(Creature):
         self.detectionOfPredator = detectionOfPredator
         self.repulsionToPredator = repulsionToPredator
 
-    def detect(self, predators): 
-        creaturesAround = utils.FilterUsingEuclideanDistances((self.rect.x,self.rect.y), predators, self.fieldRadius)
-        if len(creaturesAround) == 0:
-            pass
-        else:
-            newDirection = utils.PredictSafeDirection((self.rect.x,self.rect.y), creaturesAround)
-            self.changeDirection(newDirection)
+    def detect(self, CounterCreatures):
+        FilteredList = utils.FilterUsingEuclideanDistances((self.rect.x,self.rect.y) ,CounterCreatures ,self.fieldRadius)
+        response = utils.PredictSafeDirection((self.rect.x,self.rect.y) ,FilteredList, self.repulsionToPredator)
+        return response
 
     def details(self):
         if(self.alive):

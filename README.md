@@ -25,6 +25,7 @@ Simulating Evolution of Predator and Prey using Genetic Algorithms
 1. Addition of Water Bodies
 2. Adding Hiding spots
 3. Control Panel for various optional features such as enabling/disabling field of view
+4. Cross species effects (ones attraction effects the other)
 
 ## Branches : 
 1. Main
