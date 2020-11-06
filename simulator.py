@@ -95,17 +95,23 @@ class Simulator:
                 if event.key == K_ESCAPE:
                     self.kill()
 
-    def react(self):
+    def preyHunt(self):
+        for p in self.prey:
+            for i in range(len(self.food)-1, -1, -1):
+                foodRect = pygame.Rect(0, 0, 2*self.food[i].size, 2*self.food[i].size)
+                foodRect.centerx = self.food[i].x
+                foodRect.centery = self.food[i].y
+                if p.rect.colliderect(foodRect):
+                    del self.food[i]
+    
+    def predatorHunt(self):
         for p in self.predators:
-            x1,y1 = p.rect.x, p.rect.y
-            counter = 0
-            for a in self.prey:
-                x2,y2 = a.rect.x,a.rect.y
-                dis = ((x1-x2)**2 + (y1-y2)**2)**(0.5)
-                if dis < 1:
-                    a.dead()
-                    self.prey.remove(counter)
-                counter += 1
+            for i in range(len(self.prey)-1, -1, -1):
+                if p.rect.colliderect(self.prey[i].rect):
+                    chance = random.random()
+                    if chance > 0.3:
+                        self.prey[i].dead()
+                        del self.prey[i]
 
     def kill(self):
         pygame.quit()
@@ -117,5 +123,6 @@ while True:
     sim.checkEvents()
     sim.moveModels()
     sim.drawModels()
-    sim.react()
+    sim.preyHunt()
+    sim.predatorHunt()
     sim.update()

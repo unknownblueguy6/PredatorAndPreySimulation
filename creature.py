@@ -18,23 +18,34 @@ class Creature:
         self.maxVelocity = maxVelocity
         self.velocity = pygame.math.Vector2(velocity)
         self.alive = True
+    
     def dead(self):
         self.alive = False
+    
     def move(self, width, height, CounterCreatures):
         IntuitiveForce = self.detect(CounterCreatures)
-        currVelocity = (self.velocity[0]*(1 + IntuitiveForce[0]), self.velocity[1]*(1 + IntuitiveForce[1]))
-        self.rect.move_ip(currVelocity[0], currVelocity[1])
-        if (self.rect.x <= 0 or self.rect.x >= width):
+        self.velocity.update(self.velocity[0]*(1 + IntuitiveForce[0]), self.velocity[1]*(1 + IntuitiveForce[1]))
+        
+        if(self.velocity.magnitude() > self.maxVelocity):
+            self.velocity.normalize_ip()
+            self.velocity.scale_to_length(self.maxVelocity)
+        
+        self.rect.move_ip(self.velocity[0], self.velocity[1])
+        
+        if (self.rect.left <= 0 or self.rect.right >= width):
             self.velocity.update(-self.velocity[0], self.velocity[1])
-        if (self.rect.y <= 0 or self.rect.y >= height):
+        if (self.rect.top <= 0 or self.rect.bottom >= height):
             self.velocity.update(self.velocity[0], -self.velocity[1])
+    
     def draw(self, surface):
         if(self.alive):
             pygame.draw.rect(surface, self.color, self.rect)
+    
     def showFieldofView(self):
         pass
         #drawing the field of view circle
         #pygame.draw.circle(surface,(255,255,255),(self.x,self.y),self.fieldRadius)
+    
     def details(self, name):
         if(self.alive):
             print(f"The {name}'s max health is {self.maxHealth}")

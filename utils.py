@@ -9,7 +9,7 @@ def FilterUsingEuclideanDistances(Position, ListOfCounterCreatures, Upperbound):
     response = []
 
     for animal in ListOfCounterCreatures:
-        x,y = animal.rect.x, animal.rect.y
+        x,y = animal.rect.centerx, animal.rect.centery
         distance = ((x-Position[0])**2 + (y-Position[1])**2)**(0.5)
         if distance < Upperbound:
             response.append((animal,(1 - distance/Upperbound)))

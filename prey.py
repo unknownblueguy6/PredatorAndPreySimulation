@@ -23,8 +23,8 @@ class Prey(Creature):
         self.repulsionToPredator = repulsionToPredator
 
     def detect(self, CounterCreatures):
-        FilteredList = utils.FilterUsingEuclideanDistances((self.rect.x,self.rect.y) ,CounterCreatures ,self.fieldRadius)
-        response = utils.PredictSafeDirection((self.rect.x,self.rect.y) ,FilteredList, self.repulsionToPredator)
+        FilteredList = utils.FilterUsingEuclideanDistances((self.rect.centerx,self.rect.centery) ,CounterCreatures ,self.fieldRadius)
+        response = utils.PredictSafeDirection((self.rect.centerx,self.rect.centery) ,FilteredList, self.repulsionToPredator)
         return response
 
     def details(self):
