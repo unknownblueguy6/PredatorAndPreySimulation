@@ -36,11 +36,16 @@ def PredictSafeDirection(Position, CreaturesAround, behaviourRate):
     # if len(vectors) == 0 or len(refactoredVectors == 0):
     #     print("Vector ki galti thi")
     #     return [0,0]
-
-    resX = (behaviourRate*refactoredResultant[0])/resultant[0]
+    if resultant[0] == 0:
+        resX = 0
+    else:
+        resX = (behaviourRate*refactoredResultant[0])/resultant[0]
     if math.isnan(resX):
         resX = 0
-    resY = (behaviourRate*refactoredResultant[1])/resultant[1]
+    if resultant[1] == 0:
+        resY = 0
+    else:
+        resY = (behaviourRate*refactoredResultant[1])/resultant[1]
     if math.isnan(resY):
         resY = 0
 
