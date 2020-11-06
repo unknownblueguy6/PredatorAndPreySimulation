@@ -29,7 +29,8 @@ class Creature:
         if (self.rect.y <= 0 or self.rect.y >= height):
             self.velocity.update(self.velocity[0], -self.velocity[1])
     def draw(self, surface):
-        pygame.draw.rect(surface, self.color, self.rect)
+        if(self.alive):
+            pygame.draw.rect(surface, self.color, self.rect)
     def showFieldofView(self):
         pass
         #drawing the field of view circle

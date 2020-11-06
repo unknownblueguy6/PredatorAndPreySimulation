@@ -95,6 +95,18 @@ class Simulator:
                 if event.key == K_ESCAPE:
                     self.kill()
 
+    def react(self):
+        for p in self.predators:
+            x1,y1 = p.rect.x, p.rect.y
+            counter = 0
+            for a in self.prey:
+                x2,y2 = a.rect.x,a.rect.y
+                dis = ((x1-x2)**2 + (y1-y2)**2)**(0.5)
+                if dis < 1:
+                    a.dead()
+                    self.prey.remove(counter)
+                counter += 1
+
     def kill(self):
         pygame.quit()
         sys.exit()
@@ -105,4 +117,5 @@ while True:
     sim.checkEvents()
     sim.moveModels()
     sim.drawModels()
+    sim.react()
     sim.update()
