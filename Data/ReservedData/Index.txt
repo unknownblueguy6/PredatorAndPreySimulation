@@ -1,0 +1,20 @@
+1:
+    prey:     30
+    predator: 1
+    itrs:     1400
+2:
+    prey:     100
+    predator: 10
+    itrs:     500
+3:
+    prey:     300
+    predator: 50
+    itrs:     500
+4:
+    prey:     300
+    predator: 100
+    itrs:     500
+5:
+    prey:     100
+    predator: 100
+    itrs:     1000

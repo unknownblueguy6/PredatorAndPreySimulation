@@ -6,6 +6,9 @@ import random
 import constants
 from pygame.locals import *
 
+import numpy as np
+import pandas as pd
+
 WIDTH  = constants.WIDTH
 HEIGHT = constants.HEIGHT
 MAX_FOOD_SUPPLY = constants.MAX_FOOD_SUPPLY
@@ -18,6 +21,8 @@ initialPreyPopulation = constants.initialPreyPopulation
 PREY_REPRODUCTION_CHANCE = constants.PREY_REPRODUCTION_CHANCE
 PREDATOR_REPRODUCTION_CHANCE = constants.PREDATOR_REPRODUCTION_CHANCE
 MUTATION_CHANCE = constants.MUTATION_CHANCE
+
+Populations = []
 
 class Simulator:
     def __init__(self, initialPredatorPopulation, initialPreyPopulation):
@@ -190,7 +195,14 @@ class Simulator:
 
 sim = Simulator(initialPredatorPopulation, initialPreyPopulation)
 
+def updateData(Populations):
+    population = np.array(Populations)
+    df = pd.DataFrame(population, columns=["Prey Population", "Predator Popualtion" , "Food Count", "Ratio"])
+    df.to_csv("./Data/data.csv")
+
 while True:
+    Populations.append([len(sim.prey) , len(sim.predators) , len(sim.food), (len(sim.prey)/len(sim.predators))])
+    updateData(Populations)
     sim.checkEvents()
     sim.removeDead()
     sim.applyGeneticAlgorithm()
