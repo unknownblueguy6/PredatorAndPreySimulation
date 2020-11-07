@@ -22,20 +22,24 @@ class Creature:
     def dead(self):
         self.alive = False
     
-    def move(self, width, height, CounterCreatures):
-        IntuitiveForce = self.detect(CounterCreatures)
-        self.velocity.update(self.velocity[0]*(1 + IntuitiveForce[0]), self.velocity[1]*(1 + IntuitiveForce[1]))
-        
+    def move(self, width, height):
         if(self.velocity.magnitude() > self.maxVelocity):
-            self.velocity.normalize_ip()
             self.velocity.scale_to_length(self.maxVelocity)
         
         self.rect.move_ip(self.velocity[0], self.velocity[1])
         
         if (self.rect.left <= 0 or self.rect.right >= width):
             self.velocity.update(-self.velocity[0], self.velocity[1])
+            if self.rect.left <= 0:
+                self.rect.left = 0
+            if self.rect.left >= width:
+                self.rect.right = width
         if (self.rect.top <= 0 or self.rect.bottom >= height):
             self.velocity.update(self.velocity[0], -self.velocity[1])
+            if self.rect.top <= 0:
+                self.rect.top = 0
+            if self.rect.bottom >= height:
+                self.rect.bottom = height
     
     def draw(self, surface):
         if(self.alive):

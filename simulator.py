@@ -79,7 +79,7 @@ class Simulator:
         for p in self.predators:
             p.move(WIDTH, HEIGHT, self.prey)
         for p in self.prey:
-            p.move(WIDTH, HEIGHT, self.predators)
+            p.move(WIDTH, HEIGHT, self.predators, self.food)
 
     def update(self):
         pygame.display.update()

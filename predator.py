@@ -17,11 +17,24 @@ class Predator(Creature):
         super(Predator,self).__init__(*creatureFields)
         self.detectionOfPrey = detection
         self.attractionOfPrey = attraction
+        self.velocity.scale_to_length(self.maxVelocity)
 
-    def detect(self, CounterCreatures):
-        FilteredList = utils.FilterUsingEuclideanDistances((self.rect.centerx,self.rect.centery) ,CounterCreatures ,self.fieldRadius)
-        response = utils.PredictSafeDirection((self.rect.centerx,self.rect.centery) ,FilteredList, self.attractionOfPrey)
-        return response
+    def getTarget(self, CounterCreatures):
+        FilteredPrey = utils.PreyFilterUsingEuclideanDistances((self.rect.centerx,self.rect.centery) ,CounterCreatures ,self.fieldRadius)
+        return utils.PredictPredatorDirection((self.rect.centerx,self.rect.centery) ,FilteredPrey, self.attractionOfPrey)
+
+    def move(self, width, height, CounterCreatures):
+        targetVelocity = self.getTarget(CounterCreatures)
+
+        if targetVelocity.magnitude() != 0:
+            targetVelocity.scale_to_length(self.maxVelocity)
+            steer = targetVelocity - self.velocity
+            if steer.magnitude() > constants.maxForce:
+                steer.scale_to_length(constants.maxForce)
+        
+            self.velocity = self.velocity + steer
+        
+        super().move(width, height);
 
     def details(self):
         if(self.alive):

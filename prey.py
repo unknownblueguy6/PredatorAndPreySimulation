@@ -22,10 +22,22 @@ class Prey(Creature):
         self.detectionOfPredator = detectionOfPredator
         self.repulsionToPredator = repulsionToPredator
 
-    def detect(self, CounterCreatures):
-        FilteredList = utils.FilterUsingEuclideanDistances((self.rect.centerx,self.rect.centery) ,CounterCreatures ,self.fieldRadius)
-        response = utils.PredictSafeDirection((self.rect.centerx,self.rect.centery) ,FilteredList, self.repulsionToPredator)
-        return response
+    def getTarget(self, CounterCreatures, Food):
+        FilteredFood, FilteredPredators = utils.FoodAndPredatorFilterUsingEuclideanDistances((self.rect.centerx,self.rect.centery), CounterCreatures, Food, self.fieldRadius)
+        return utils.PredictPreyDirection((self.rect.centerx,self.rect.centery), FilteredPredators, FilteredFood, self.attractionToFood, self.repulsionToPredator)
+
+    def move(self, width, height, CounterCreatures, Food):
+        targetVelocity = self.getTarget(CounterCreatures, Food)
+
+        if targetVelocity.magnitude() != 0:
+            targetVelocity.scale_to_length(self.maxVelocity)
+            steer = targetVelocity - self.velocity
+            if steer.magnitude() > constants.maxForce:
+                steer.scale_to_length(constants.maxForce)
+        
+            self.velocity = self.velocity + steer
+        
+        super().move(width, height)
 
     def details(self):
         if(self.alive):
