@@ -12,13 +12,14 @@ Simulating Evolution of Predator and Prey using Genetic Algorithms
 5. ~~Add movement functions to Predator~~
 6. ~~Add movement functions to Prey~~
 7. ~~Detecttion of Prey/Predator/Food~~
-8. Choosing a direction in accordance to the detection
-9. Attraction to Prey/Preadtor/Food
-10. Choosing a direction in accordance to the attraction measures
-11. Apply net force on an entity
-12. Genetic Algorithm for breeding
-13. A net result for all weights and biases used for net force
+8. ~~Choosing a direction in accordance to the detection~~
+9. ~~Attraction to Prey/Preadtor/Food~~
+10. ~~Choosing a direction in accordance to the attraction measures~~
+11. ~~Apply net force on an entity~~
+12. ~~Genetic Algorithm for breeding~~
+13. ~~A net result for all weights and biases used for net force~~
 14. Conculsive report
+15. Graph data
 
 
 ## Bonus : 
