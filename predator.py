@@ -9,6 +9,9 @@ MAX_VELOCITY = constants.PredatorMAX_VELOCITY
 SIZE = constants.PredatorSIZE
 COLOR = constants.PredatorCOLOR
 
+HEALTH_GAIN = constants.PredatorHEALTH_GAIN
+HEALTH_LOSS = constants.PredatorHEALTH_LOSS
+
 MAX_DETECTION_OF_PREY  = constants.MAX_DETECTION_OF_PREY
 MAX_ATTRACTION_TO_PREY = constants.MAX_ATTRACTION_TO_PREY
 

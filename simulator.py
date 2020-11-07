@@ -11,6 +11,7 @@ HEIGHT = constants.HEIGHT
 MAX_FOOD_SUPPLY = constants.MAX_FOOD_SUPPLY
 INIT_VELOCITY = constants.INIT_VELOCITY
 FPS = constants.FPS
+CHANCE_OF_ESCAPE = constants.CHANCE_OF_ESCAPE
 initialPredatorPopulation = constants.initialPredatorPopulation
 initialPreyPopulation = constants.initialPreyPopulation
 
@@ -76,10 +77,10 @@ class Simulator:
 
     def moveModels(self):
         self.surface.fill((0, 0, 0))
-        for p in self.predators:
-            p.move(WIDTH, HEIGHT, self.prey)
-        for p in self.prey:
-            p.move(WIDTH, HEIGHT, self.predators, self.food)
+        for i in range(len(self.predators)):
+            self.predators[i].move(WIDTH, HEIGHT, self.prey)
+        for i in range(len(self.prey)):
+            self.prey[i].move(WIDTH, HEIGHT, self.predators, self.food)
 
     def update(self):
         pygame.display.update()
@@ -96,22 +97,60 @@ class Simulator:
                     self.kill()
 
     def preyHunt(self):
-        for p in self.prey:
+        for j in range(len(self.prey)):
+            p = self.prey[j]
             for i in range(len(self.food)-1, -1, -1):
                 foodRect = pygame.Rect(0, 0, 2*self.food[i].size, 2*self.food[i].size)
                 foodRect.centerx = self.food[i].x
                 foodRect.centery = self.food[i].y
                 if p.rect.colliderect(foodRect):
                     del self.food[i]
+                    self.prey[j].health += prey.HEALTH_GAIN
+                    self.prey[j].health = min(self.prey[j].health, self.prey[j].maxHealth)
     
     def predatorHunt(self):
-        for p in self.predators:
+        for j in range(len(self.predators)):
+            p = self.predators[j]
             for i in range(len(self.prey)-1, -1, -1):
                 if p.rect.colliderect(self.prey[i].rect):
                     chance = random.random()
-                    if chance > 0.3:
+                    if chance > CHANCE_OF_ESCAPE:
                         self.prey[i].dead()
                         del self.prey[i]
+                        self.predators[j].health += predator.HEALTH_GAIN
+                        self.predators[j].health = min(self.predators[j].health, self.predators[j].maxHealth)
+                    else:
+                        self.prey[i].health -= prey.HEALTH_LOSS / 2
+                        self.predators[j].health += predator.HEALTH_GAIN / 2
+                        self.predators[j].health = min(self.predators[j].health, self.predators[j].maxHealth)
+
+    
+    def decreaseHealth(self):
+        for i in range(len(self.predators)):
+            self.predators[i].health -= predator.HEALTH_LOSS
+            if self.predators[i].health <= 0:
+                self.predators[i].dead()
+        for i in range(len(self.prey)):
+            self.prey[i].health -= prey.HEALTH_LOSS
+            if self.prey[i].health <= 0:
+                self.prey[i].dead()
+    
+    def removeDead(self):
+        for i in range(len(self.predators)-1, -1, -1):
+            if (self.predators[i].alive == False):
+                del self.predators[i]
+        for i in range(len(self.prey)-1, -1, -1):
+            if (self.prey[i].alive == False):
+                del self.prey[i]
+
+    def addFood(self):
+        while len(self.food) < MAX_FOOD_SUPPLY:
+            f = food.Food(
+                (random.randint(0, WIDTH), random.randint(0, HEIGHT)),
+                food.COLOR,
+                food.SIZE
+            )
+            self.food.append(f)
 
     def kill(self):
         pygame.quit()
@@ -121,8 +160,11 @@ sim = Simulator(initialPredatorPopulation, initialPreyPopulation)
 
 while True:
     sim.checkEvents()
+    sim.removeDead()
+    sim.addFood()
     sim.moveModels()
     sim.drawModels()
     sim.preyHunt()
     sim.predatorHunt()
+    sim.decreaseHealth()
     sim.update()

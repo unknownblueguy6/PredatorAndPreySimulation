@@ -14,6 +14,7 @@ class Creature:
         self.size = size
         self.rect = pygame.Rect((position[0], position[1]), (size, size))
         self.maxHealth = maxHealth
+        self.health = self.maxHealth
         self.fieldRadius = fieldRadius
         self.maxVelocity = maxVelocity
         self.velocity = pygame.math.Vector2(velocity)
