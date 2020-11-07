@@ -1,4 +1,5 @@
 import pygame
+import random
 
 # maxHealth    =>  integer for health (Out of 100)
 # fieldRadius  => integer for field of view

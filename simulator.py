@@ -15,6 +15,10 @@ CHANCE_OF_ESCAPE = constants.CHANCE_OF_ESCAPE
 initialPredatorPopulation = constants.initialPredatorPopulation
 initialPreyPopulation = constants.initialPreyPopulation
 
+PREY_REPRODUCTION_CHANCE = constants.PREY_REPRODUCTION_CHANCE
+PREDATOR_REPRODUCTION_CHANCE = constants.PREDATOR_REPRODUCTION_CHANCE
+MUTATION_CHANCE = constants.MUTATION_CHANCE
+
 class Simulator:
     def __init__(self, initialPredatorPopulation, initialPreyPopulation):
         pygame.init()
@@ -152,6 +156,34 @@ class Simulator:
             )
             self.food.append(f)
 
+    def breedPrey(self):
+        preyHealth = []
+        for p in self.prey:
+            preyHealth.append(p.health)
+        
+        parent1, parent2 = random.choices(self.prey, weights = preyHealth, k = 2)
+        child = parent1.crossbreed(parent2)
+        if(random.random() < MUTATION_CHANCE):
+            child.mutate()
+        self.prey.append(child)
+    
+    def breedPredator(self):
+        predHealth = []
+        for p in self.predators:
+            predHealth.append(p.health)
+        
+        parent1, parent2 = random.choices(self.predators, weights = predHealth, k = 2)
+        child = parent1.crossbreed(parent2)
+        if(random.random() < MUTATION_CHANCE):
+            child.mutate()
+        self.predators.append(child)
+
+    def applyGeneticAlgorithm(self):
+        if random.random() < PREY_REPRODUCTION_CHANCE:
+            self.breedPrey()
+        if random.random() < PREDATOR_REPRODUCTION_CHANCE:
+            self.breedPredator()
+
     def kill(self):
         pygame.quit()
         sys.exit()
@@ -161,6 +193,7 @@ sim = Simulator(initialPredatorPopulation, initialPreyPopulation)
 while True:
     sim.checkEvents()
     sim.removeDead()
+    sim.applyGeneticAlgorithm()
     sim.addFood()
     sim.moveModels()
     sim.drawModels()
